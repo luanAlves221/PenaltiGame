@@ -6,8 +6,8 @@ golsJ = 0
 golsCp = 0
 
 def jogador():
+    print("De qual lado deseja bater o pênalte? (a esquerda, d direita, m meio)")
     while True:
-        print("De qual lado deseja bater o pênalte? (a esquerda, d direita, m meio)")
         if keyboard.is_pressed("a"):
             print("Você escolheu o lado esquerdo")
             break
@@ -17,17 +17,20 @@ def jogador():
         elif keyboard.is_pressed("m"):
             print("Você escolheu o meio")
             break       
+        elif keyboard.is_pressed("q"):
+                placar()
+    time.sleep(1)
 
-    time.sleep(2)
-
+    print("Qual a altura da cobrança? (w alto, b baixo)")
     while True:
-        print("Qual a altura da cobrança? (w alto, b baixo)")
         if keyboard.is_pressed("w"):
-            print("Você escolheu a altura alta")
+            print("Você chutará no alto")
             break
         elif keyboard.is_pressed("b"):
-            print("Você escolheu a altura baixa")
+            print("Você chutará baixo")
             break
+        elif keyboard.is_pressed("q"):
+                placar()
 
     time.sleep(2)
 
@@ -37,7 +40,9 @@ def jogador():
     while True:
         if keyboard.is_pressed("space"):
             break
-        time.sleep(1)
+        elif keyboard.is_pressed("q"):
+                placar()
+
 
     actions = ["gol", "defendido", "fora", "trave"]
     porcentagem = [55, 20, 15, 10]
@@ -60,6 +65,8 @@ def computador():
     print("O computador se prepara...")
     time.sleep(2)
     print("Autorizado a cobrança do computador!")
+    time.sleep(2)
+
     actions2 = ["gol", "defendido", "fora", "trave"]
     porcentagem = [55, 20, 15, 10]
     resultadoCp = random.choices(actions2, weights=porcentagem)[0]
@@ -75,7 +82,7 @@ def computador():
     elif resultadoCp == "trave":
         print("Na traaave!")
 
-def placar():
+def placarFinal():
     global golsJ, golsCp
     print("Placar final")
     print(f"Jogador {golsJ} X Computador {golsCp}")
@@ -87,18 +94,21 @@ def placar():
     elif golsJ == golsCp:
         print("Vamos para as alternadas!")
 
+def placar():
+    global golsJ, golsCp
+    print(f"Placar atual: Jogador {golsJ} X Computador {golsCp}")
+
 def main():
-    global golsJ, golsCp, cobranca
+    global golsJ, golsCp
     cobranca = 0
 
     for cobranca in range(5):
-        print(f"\nRodada {cobranca + 1}: Jogador")
+        print(f"Cobrança {cobranca + 1}: Jogador")
         jogador()
 
-        print(f"\nRodada {cobranca + 1}: Computador")
+        print(f"Cobrança {cobranca + 1}: Computador")
         computador()
 
-        verPlacar()
 
         if golsJ > (golsCp + (5 - cobranca - 1)):
             print("Você venceu! O computador não pode mais alcançar.")
@@ -107,6 +117,6 @@ def main():
             print("O computador venceu! Você não pode mais alcançar.")
             return
 
-    placar()
+    placarFinal()
 
 main()
