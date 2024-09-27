@@ -113,21 +113,19 @@ def main():
         if sortearQ == "Jogador":
             print(f"Cobrança {cobranca + 1}: Jogador")
             jogador()
-            print(f"\nCobrança {cobranca + 1}: Computador")
+            print("é a vez do computador...")
             computador()
         else:
             print(f"\nCobrança {cobranca + 1}: Computador")
             computador()
-            print(f"\nCobrança {cobranca + 1}: Jogador")
+            print("é a sua vez")
             jogador()
 
         if golsJ > (golsCp + (5 - cobranca - 1)):
-            print("Você venceu! O computador não pode mais alcançar.")
-            return
+            placarFinal()
         if golsCp > (golsJ + (5 - cobranca - 1)):
-            print("O computador venceu! Você não pode mais alcançar.")
-            return
-
+            placarFinal()
+            
     placarFinal()
 
 main()
