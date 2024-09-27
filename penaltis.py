@@ -18,7 +18,7 @@ def jogador():
             print("Você escolheu o meio")
             break       
         elif keyboard.is_pressed("q"):
-                placar()
+            placar()
     time.sleep(1)
 
     print("Qual a altura da cobrança? (w alto, b baixo)")
@@ -30,7 +30,7 @@ def jogador():
             print("Você chutará baixo")
             break
         elif keyboard.is_pressed("q"):
-                placar()
+            placar()
 
     time.sleep(2)
 
@@ -41,8 +41,7 @@ def jogador():
         if keyboard.is_pressed("space"):
             break
         elif keyboard.is_pressed("q"):
-                placar()
-
+            placar()
 
     actions = ["gol", "defendido", "fora", "trave"]
     porcentagem = [55, 20, 15, 10]
@@ -98,17 +97,29 @@ def placar():
     global golsJ, golsCp
     print(f"Placar atual: Jogador {golsJ} X Computador {golsCp}")
 
+def sortear():
+    sorteio = random.choice(["Jogador", "Computador"])
+    print(f"{sorteio} começará cobrando.")
+    return sorteio
+
 def main():
+    print("Seja bem-vindo ao jogo de pénaltis!")
     global golsJ, golsCp
     cobranca = 0
 
+    sortearQ = sortear()
+
     for cobranca in range(5):
-        print(f"Cobrança {cobranca + 1}: Jogador")
-        jogador()
-
-        print(f"Cobrança {cobranca + 1}: Computador")
-        computador()
-
+        if sortearQ == "Jogador":
+            print(f"Cobrança {cobranca + 1}: Jogador")
+            jogador()
+            print(f"\nCobrança {cobranca + 1}: Computador")
+            computador()
+        else:
+            print(f"\nCobrança {cobranca + 1}: Computador")
+            computador()
+            print(f"\nCobrança {cobranca + 1}: Jogador")
+            jogador()
 
         if golsJ > (golsCp + (5 - cobranca - 1)):
             print("Você venceu! O computador não pode mais alcançar.")
