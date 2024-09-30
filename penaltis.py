@@ -102,8 +102,28 @@ def sortear():
     print(f"{sorteio} começará cobrando.")
     return sorteio
 
+def alternadas():
+    global golsJ, golsCp
+
+    rodada = 6
+    while golsJ == golsCp:
+        print(f"cobrança  {rodada}: Jogador")
+        jogador()
+        print("É a vez do computador...")
+        computador()
+        placar()
+
+        if golsJ > golsCp:
+            placarFinal()
+            break
+        elif golsCp > golsJ:
+            placarFinal()
+            break
+
+        rodada += 1
+
 def main():
-    print("Seja bem-vindo ao jogo de pénaltis!")
+    print("Seja bem-vindo ao jogo de pênaltis!")
     global golsJ, golsCp
     cobranca = 0
 
@@ -113,19 +133,24 @@ def main():
         if sortearQ == "Jogador":
             print(f"Cobrança {cobranca + 1}: Jogador")
             jogador()
-            print("é a vez do computador...")
+            print("É a vez do computador...")
             computador()
         else:
             print(f"\nCobrança {cobranca + 1}: Computador")
             computador()
-            print("é a sua vez")
+            print("É a sua vez")
             jogador()
 
         if golsJ > (golsCp + (5 - cobranca - 1)):
             placarFinal()
+            return
         if golsCp > (golsJ + (5 - cobranca - 1)):
             placarFinal()
-            
+            return
+
+    if golsJ == golsCp:
+        alternadas()
+
     placarFinal()
 
 main()
